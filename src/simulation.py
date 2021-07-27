@@ -12,6 +12,10 @@ class Result(Enum):
     WIN = 1
 
 
+def get_random_strategy() -> Strategy:
+    return random.choice(list(Strategy))
+
+
 def simulate_with_strategy(strategy: Strategy) -> Result:
     closed_doors = {0, 1, 2}
 
@@ -32,7 +36,7 @@ def simulate_with_strategy(strategy: Strategy) -> Result:
         pass
 
     if strategy == Strategy.CHANGE:
-        win_door = list(closed_doors - {chosen_door})[0]  # Switch chosen door.
+        chosen_door = list(closed_doors - {chosen_door})[0]  # Switch chosen door.
 
     if win_door == chosen_door:
         return Result.WIN
@@ -40,5 +44,5 @@ def simulate_with_strategy(strategy: Strategy) -> Result:
 
 
 def simulate_with_random_strategy() -> Result:
-    strategy = random.choice(list(Strategy))
+    strategy = get_random_strategy()
     return simulate_with_strategy(strategy)
